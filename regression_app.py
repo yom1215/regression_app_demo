@@ -80,7 +80,9 @@ def main():
         st.success('Done!')
 
         # 予測結果の表示
-        st.write("訓練データの実際のターゲット値と予測値:")
+        st.subheader("学習結果の表示")
+        st.write("訓練データの実際のtargetの値と予測値:")
+        st.caption("グラフ上でスクロールすると拡大できます")
         
         st.line_chart(df[['target','prediction']],color=['#6495ED','#e95295'])
 
