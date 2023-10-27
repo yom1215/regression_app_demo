@@ -74,8 +74,8 @@ def main():
 
         # 予測結果の表示
         st.write("訓練データの実際のターゲット値と予測値:")
-        df['is_test'] = df.is_test*max(df[['target','prediction']])*1.2
-        st.line_chart(df[['target','prediction','is_test']],color=['lightblue','red','blue'])
+        
+        st.line_chart(df[['target','prediction']],color=['lightblue','red'])
 
         st.write("test 予測結果:")
         st.write(predictions)
