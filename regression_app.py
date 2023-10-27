@@ -50,16 +50,16 @@ def main():
     train_file = st.file_uploader("訓練データをアップロードしてください", type=["csv"])
     test_file = st.file_uploader("テストデータをアップロードしてください", type=["csv"])
 
-    st.caption("demo: サンプルデータを読み込んで実行")
-    demo_button = st.button("Demoを実行")
+    st.write("demo: サンプルデータを読込")
+    demo_button = st.button("demo")
     if demo_button:
-        with st.spinner(text='load sample data..'):
-            train_file = './train.csv'
-            test_file = './test.csv'
-            time.sleep(1)
-        st.sucsess('sample data is ready!')
+        train_file = './train.csv'
+        test_file = './test.csv'
 
-    start_button = st.button("学習・推論実行")
+    if train_file and test_file:
+        st.success('data is ready!')
+        start_button = st.button("学習・推論実行")
+    
     if start_button:
         st.write("モデルを訓練・実行します...")
 
