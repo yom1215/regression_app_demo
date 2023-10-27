@@ -30,12 +30,21 @@ def main():
     # ファイルアップロード機能を追加
     train_file = st.file_uploader("訓練データをアップロードしてください", type=["csv"])
     test_file = st.file_uploader("テストデータをアップロードしてください", type=["csv"])
+    # Demoボタンの追加
+    demo_button = st.button("Demoを実行")
 
-    # 両方のファイルがアップロードされた場合、回帰モデルを実行
+    # Demoボタンが押されたか、両方のファイルがアップロードされたかをチェック
+    if demo_button:
+        st.write("サンプルデータを使用してモデルを訓練・実行します...")
+        train_file = './sample_data/train.csv'
+        test_file = './sample_data/test.csv'
+    
     if train_file and test_file:
-        st.write("モデルを訓練・実行します...")
-        predictions = perform_regression(train_file, test_file)
+        if not demo_button:  # ボタンが押されていない場合のメッセージ
+            st.write("モデルを訓練・実行します...")
         
+        predictions = perform_regression(train_file, test_file)
+
         # 予測結果をDataFrameに変換
         df_predictions = pd.DataFrame(predictions, columns=["predictions"])
 
