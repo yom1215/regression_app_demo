@@ -63,11 +63,11 @@ def main():
     # Demoボタンが押されたかをチェック
     if demo_button:
         st.write("サンプルデータを使用してモデルを訓練・実行します...")
-        train_file = './train.csv'
-        test_file = './test.csv'
-        start_button = True
         with st.spinner(text='In progress'):
+            train_file = './train.csv'
+            test_file = './test.csv'
             time.sleep(1)
+        start_button = True
     
     if start_button:
         if not demo_button:  # ボタンが押されていない場合のメッセージ
@@ -75,6 +75,7 @@ def main():
 
         with st.spinner(text='In progress'):
             df = perform_regression(train_file, test_file)
+            time.sleep(1)
         
         st.success('Done!')
 
