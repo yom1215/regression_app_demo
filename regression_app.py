@@ -57,7 +57,8 @@ def main():
 
         # 予測結果の表示
         st.write("訓練データの実際のターゲット値と予測値:")
-        st.line_chart(df[['target','prediction']])
+        plot_len = len(predictions)*1.5
+        st.line_chart(df[['target','prediction']].iloc[plot_len])
 
         # 予測結果をDataFrameに変換
         df_predictions = pd.DataFrame(predictions, columns=["predictions"])
@@ -67,7 +68,7 @@ def main():
         st.write(df_predictions)
 
         # CSVダウンロードボタンの表示
-        csv = df_predictions.to_csv(index=False)
+        csv = df.to_csv(index=False)
         st.download_button("予測結果をCSVとしてダウンロード", data=csv, file_name="predictions.csv", mime="text/csv")
 
 # main関数の実行
