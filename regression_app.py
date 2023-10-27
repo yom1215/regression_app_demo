@@ -55,14 +55,13 @@ def main():
     if demo_button:
         train_file = './train.csv'
         test_file = './test.csv'
-
-    if train_file and test_file:
         st.success('data is ready!')
-    
-    start_button = st.button("学習・推論実行")
-    if start_button:
-        st.write("モデルを訓練・実行します...")
 
+    if not demo_button:
+        st.write("データを読み込んで実行ボタンを押してください")
+    
+    start_button = st.button("学習実行")
+    if start_button:
         with st.spinner(text='In progress'):
             df = perform_regression(train_file, test_file)
             time.sleep(1)
