@@ -18,10 +18,13 @@ def perform_regression(train_file, test_file):
     model = LinearRegression()
     model.fit(X_train, y_train)
 
+    # 訓練データに対する予測値の取得
+    train_predictions = model.predict(X_train)
+    
     # 予測
-    predictions = model.predict(X_test)
+    test_predictions = model.predict(X_test)
 
-    return predictions
+    return train_predictions, test_predictions
 
 # Streamlitアプリケーションのメイン関数
 def main():
@@ -46,7 +49,17 @@ def main():
         if not demo_button:  # ボタンが押されていない場合のメッセージ
             st.write("モデルを訓練・実行します...")
         
-        predictions = perform_regression(train_file, test_file)
+        train_predictions, test_predictions = perform_regression(train_file, test_file)
+
+        # 予測結果をDataFrameに変換
+        df_train_predictions = pd.DataFrame({
+            "Actual": y_train, 
+            "Predicted": train_predictions
+        })
+
+        # 予測結果の表示
+        st.write("訓練データの実際のターゲット値と予測値:")
+        st.line_chart(df_train_predictions)
 
         # 予測結果をDataFrameに変換
         df_predictions = pd.DataFrame(predictions, columns=["predictions"])
