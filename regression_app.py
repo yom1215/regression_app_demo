@@ -25,7 +25,7 @@ def perform_regression(train_file, test_file):
     predictions = model.predict(X_test)
     test_data['prediction'] = predictions
     
-    df = pd.concat([train_data,test_data], axis=0)
+    df = pd.concat([test_data,train_data], axis=0)
 
     return df, predictions
 
@@ -52,7 +52,7 @@ def main():
         if not demo_button:  # ボタンが押されていない場合のメッセージ
             st.write("モデルを訓練・実行します...")
         
-        df, test_predictions = perform_regression(train_file, test_file)
+        df, predictions = perform_regression(train_file, test_file)
 
 
         # 予測結果の表示
