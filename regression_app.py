@@ -24,7 +24,7 @@ def perform_regression(train_file, test_file):
     # 予測
     test_predictions = model.predict(X_test)
 
-    return train_predictions, test_predictions
+    return y_train, train_predictions, test_predictions
 
 # Streamlitアプリケーションのメイン関数
 def main():
@@ -49,7 +49,7 @@ def main():
         if not demo_button:  # ボタンが押されていない場合のメッセージ
             st.write("モデルを訓練・実行します...")
         
-        train_predictions, test_predictions = perform_regression(train_file, test_file)
+        y_train, train_predictions, test_predictions = perform_regression(train_file, test_file)
 
         # 予測結果をDataFrameに変換
         df_train_predictions = pd.DataFrame({
