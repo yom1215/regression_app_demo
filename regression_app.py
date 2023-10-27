@@ -36,7 +36,7 @@ def main():
     st.title("回帰モデルアプリ")
 
     # ファイルアップロード
-    st.markdown(```
+    st.markdown('''
         ## データ
         - データに時間軸がある場合、上から「古い→新しい」順にしてください
         - trainにだけ予測する値を列名「target」でいれてください
@@ -45,7 +45,7 @@ def main():
         - trainの「target」以外の列すべてで学習を行います
         ## モデル
         - scikit-learnの線形回帰です
-        ```)
+        ''')
     
     train_file = st.file_uploader("訓練データをアップロードしてください", type=["csv"])
     test_file = st.file_uploader("テストデータをアップロードしてください", type=["csv"])
