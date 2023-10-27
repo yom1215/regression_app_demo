@@ -50,28 +50,18 @@ def main():
     train_file = st.file_uploader("訓練データをアップロードしてください", type=["csv"])
     test_file = st.file_uploader("テストデータをアップロードしてください", type=["csv"])
 
-    start_button = False
-
-    start_button = st.button("学習・推論実行")
-    
-    # Demoボタン
-    st.subheader("demo: サンプルデータを読み込んで実行")
+    st.caption("demo: サンプルデータを読み込んで実行")
     demo_button = st.button("Demoを実行")
-
-    
-
-    # Demoボタンが押されたかをチェック
     if demo_button:
-        st.write("サンプルデータを使用してモデルを訓練・実行します...")
-        with st.spinner(text='In progress'):
+        with st.spinner(text='load sample data..'):
             train_file = './train.csv'
             test_file = './test.csv'
             time.sleep(1)
-        start_button = True
-    
+        st.sucsess('sample data is ready!')
+
+    start_button = st.button("学習・推論実行")
     if start_button:
-        if not demo_button:  # ボタンが押されていない場合のメッセージ
-            st.write("入力データを使用してモデルを訓練・実行します...")
+        st.write("モデルを訓練・実行します...")
 
         with st.spinner(text='In progress'):
             df = perform_regression(train_file, test_file)
