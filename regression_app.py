@@ -23,13 +23,12 @@ def perform_regression(train_file, test_file):
     train_data['is_test'] = 0
     
     # 予測
-    predictions = model.predict(X_test)
-    test_data['prediction'] = predictions
+    test_data['prediction'] = model.predict(X_test)
     test_data['is_test'] = 1
     
     df = pd.concat([train_data,test_data], axis=0)
 
-    return df, predictions
+    return df
 
 # Streamlitアプリケーションのメイン関数
 def main():
@@ -54,9 +53,11 @@ def main():
 
     start_button = st.button("学習・推論実行")
     
-    # Demoボタンの追加
+    # Demoボタン
     st.subheader("demo: サンプルデータを読み込んで実行")
     demo_button = st.button("Demoを実行")
+
+    
 
     # Demoボタンが押されたかをチェック
     if demo_button:
@@ -64,13 +65,15 @@ def main():
         train_file = './train.csv'
         test_file = './test.csv'
         start_button = True
+        with st.spinner(text='In progress'):
+            time.sleep(1)
     
     if start_button:
         if not demo_button:  # ボタンが押されていない場合のメッセージ
             st.write("入力データを使用してモデルを訓練・実行します...")
 
-        with st.spinner(text="In progress..."):
-            df, predictions = perform_regression(train_file, test_file)
+        with st.spinner(text='In progress'):
+            df = perform_regression(train_file, test_file)
         
         st.success('Done!')
 
@@ -80,7 +83,7 @@ def main():
         st.line_chart(df[['target','prediction']],color=['#6495ED','#e95295'])
 
         st.write("test 予測結果:")
-        st.write(predictions)
+        st.dataframe(df)
 
         # CSVダウンロードボタンの表示
         csv = df.to_csv(index=False)
