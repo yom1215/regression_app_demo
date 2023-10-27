@@ -57,8 +57,8 @@ def main():
 
         # 予測結果の表示
         st.write("訓練データの実際のターゲット値と予測値:")
-        plot_len = len(predictions)*1.5
-        st.line_chart(df[['target','prediction']].iloc[plot_len])
+        plot_len = len(predictions)+10
+        st.line_chart(df[['target','prediction']].iloc[:plot_len])
 
         # 予測結果をDataFrameに変換
         df_predictions = pd.DataFrame(predictions, columns=["predictions"])
