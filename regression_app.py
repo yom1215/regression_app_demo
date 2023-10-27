@@ -57,7 +57,7 @@ def main():
 
         # 予測結果の表示
         st.write("訓練データの実際のターゲット値と予測値:")
-        st.line_chart(df[['target','predictions']])
+        st.line_chart(df[['target','prediction']])
 
         # 予測結果をDataFrameに変換
         df_predictions = pd.DataFrame(predictions, columns=["predictions"])
