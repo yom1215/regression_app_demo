@@ -36,8 +36,8 @@ def main():
     # Demoボタンが押されたか、両方のファイルがアップロードされたかをチェック
     if demo_button:
         st.write("サンプルデータを使用してモデルを訓練・実行します...")
-        train_file = './sample_data/train.csv'
-        test_file = './sample_data/test.csv'
+        train_file = './train.csv'
+        test_file = './test.csv'
     
     if train_file and test_file:
         if not demo_button:  # ボタンが押されていない場合のメッセージ
