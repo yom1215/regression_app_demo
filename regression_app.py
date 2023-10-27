@@ -27,10 +27,13 @@ def perform_regression(train_file, test_file):
 def main():
     st.title("回帰モデルアプリ")
 
-    # ファイルアップロード機能を追加
+    # ファイルアップロード
+    st.write("データのアップロード")
     train_file = st.file_uploader("訓練データをアップロードしてください", type=["csv"])
     test_file = st.file_uploader("テストデータをアップロードしてください", type=["csv"])
+    
     # Demoボタンの追加
+    st.write("demo: サンプルデータを読み込んで実行")
     demo_button = st.button("Demoを実行")
 
     # Demoボタンが押されたか、両方のファイルがアップロードされたかをチェック
