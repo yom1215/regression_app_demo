@@ -19,12 +19,15 @@ def perform_regression(train_file, test_file):
     model.fit(X_train, y_train)
 
     # 訓練データに対する予測値の取得
-    train_predictions = model.predict(X_train)
+    train_data['prediction'] = model.predict(X_train)
     
     # 予測
-    test_predictions = model.predict(X_test)
+    predictions = model.predict(X_test)
+    test_data['prediction'] = predictions
+    
+    df = pd.concat([train_data,test_data], axis=0)
 
-    return y_train, train_predictions, test_predictions
+    return df, predictions
 
 # Streamlitアプリケーションのメイン関数
 def main():
