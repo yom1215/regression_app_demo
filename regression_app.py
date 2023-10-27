@@ -52,17 +52,12 @@ def main():
         if not demo_button:  # ボタンが押されていない場合のメッセージ
             st.write("モデルを訓練・実行します...")
         
-        y_train, train_predictions, test_predictions = perform_regression(train_file, test_file)
+        df, test_predictions = perform_regression(train_file, test_file)
 
-        # 予測結果をDataFrameに変換
-        df_train_predictions = pd.DataFrame({
-            "Actual": y_train, 
-            "Predicted": train_predictions
-        })
 
         # 予測結果の表示
         st.write("訓練データの実際のターゲット値と予測値:")
-        st.line_chart(df_train_predictions)
+        st.line_chart(df[['target','predictions']])
 
         # 予測結果をDataFrameに変換
         df_predictions = pd.DataFrame(predictions, columns=["predictions"])
