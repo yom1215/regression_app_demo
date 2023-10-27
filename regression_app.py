@@ -58,8 +58,8 @@ def main():
 
     if train_file and test_file:
         st.success('data is ready!')
-        start_button = st.button("学習・推論実行")
     
+    start_button = st.button("学習・推論実行")
     if start_button:
         st.write("モデルを訓練・実行します...")
 
