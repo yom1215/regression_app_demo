@@ -37,26 +37,28 @@ def main():
 
     # ファイルアップロード
     st.markdown('''
+        ## モデル
+        - scikit-learnの線形回帰です
         ## データ
         - データに時間軸がある場合、上から「古い→新しい」順にしてください
         - trainにだけ予測する値を列名「target」でいれてください
         - testには「target」列はいれないでください
         - trainとtestのそのほかの列は同じ順番に並べてください
         - trainの「target」以外の列すべてで学習を行います
-        ## モデル
-        - scikit-learnの線形回帰です
         ''')
     
     train_file = st.file_uploader("訓練データをアップロードしてください", type=["csv"])
     test_file = st.file_uploader("テストデータをアップロードしてください", type=["csv"])
 
+    start_button = False
+
     start_button = st.button("学習・推論実行")
     
     # Demoボタンの追加
-    st.write("demo: サンプルデータを読み込んで実行")
+    st.subheader("demo: サンプルデータを読み込んで実行")
     demo_button = st.button("Demoを実行")
 
-    # Demoボタンが押されたか、両方のファイルがアップロードされたかをチェック
+    # Demoボタンが押されたかをチェック
     if demo_button:
         st.write("サンプルデータを使用してモデルを訓練・実行します...")
         train_file = './train.csv'
@@ -75,7 +77,7 @@ def main():
         # 予測結果の表示
         st.write("訓練データの実際のターゲット値と予測値:")
         
-        st.line_chart(df[['target','prediction']],color=['lightblue','red'])
+        st.line_chart(df[['target','prediction']],color=['#6495ED','#e95295'])
 
         st.write("test 予測結果:")
         st.write(predictions)
