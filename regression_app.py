@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import time
 from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error 
 
 # 回帰モデルの関数
 def perform_regression(train_file, test_file):
@@ -55,23 +56,25 @@ def main():
     start_button = st.button("学習・推論実行")
     
     # Demoボタン
+    # stateの初期化
+    if "demo_clicked" not in st.session_state:
+        st.session_state.demo_clicked = False
+
     st.subheader("demo: サンプルデータを読み込んで実行")
-    demo_button = st.button("Demoを実行")
+    demo_button = st.button("Demoを実行", type="primary")
+
+    if demo_button:
+        st.session_state.demo_clicked = True
 
     # Demoボタンが押されたかをチェック
-    if demo_button:
-        st.write("サンプルデータを使用してモデルを訓練・実行します...")
-        with st.spinner(text='In progress'):
-            train_file = './train.csv'
-            test_file = './test.csv'
-            time.sleep(1)
+    if st.session_state.demo_clicked:
+        st.write("サンプルデータを読み込みます...")
+        train_file = './train.csv'
+        test_file = './test.csv'
         start_button = True
-    else:
-        st.write("データを読み込んでください")
         
     if start_button:
-        if not demo_button:  # ボタンが押されていない場合のメッセージ
-            st.write("入力データを使用してモデルを訓練・実行します...")
+        st.write("モデルを訓練・実行します...")
 
         with st.spinner(text='In progress'):
             df = perform_regression(train_file, test_file)
@@ -86,8 +89,14 @@ def main():
         
         st.line_chart(df[['target','prediction']],color=['#6495ED','#e95295'])
 
+        st.scatter_chart(data=df, x='target', y='prediction')
+
+        mse = mean_squared_error(y_true = df.dropna()['target'], y_pred=df.dropna()['prediction'])
+
+        st.write(f"train MSE : {mse}")
+
         st.write("test 予測結果:")
-        st.dataframe(df)
+        st.dataframe(df[df.is_test==1])
 
         # CSVダウンロードボタンの表示
         csv = df.to_csv(index=False)
